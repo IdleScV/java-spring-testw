@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.User;
+
 import com.example.demo.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,18 +32,30 @@ public class UserService {
     }
 
     public User updateUser(Long id, User updatedUser) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setName(updatedUser.getName());
-            user.setEmail(updatedUser.getEmail());
-            // Update other fields as needed
-            return userRepository.save(user);
+    Optional<User> optionalUser = userRepository.findById(id);
+    if (optionalUser.isPresent()) {
+        User user = optionalUser.get();
+        
+        // Check and update the name field if it is passed
+        String updatedName = updatedUser.getName();
+        if (updatedName != null) {
+            user.setName(updatedName);
         }
-        return null;
+        
+        // Check and update the email field if it is passed
+        String updatedEmail = updatedUser.getEmail();
+        if (updatedEmail != null) {
+            user.setEmail(updatedEmail);
+        }
+        
+        // Update other fields as needed
+        
+        return userRepository.save(user);
     }
-
+    return null;
+}
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+
     }
 }

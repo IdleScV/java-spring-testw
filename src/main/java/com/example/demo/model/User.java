@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 public class User {
@@ -23,6 +27,10 @@ public class User {
         this.name = name;
         this.email = email;
     }
+
+     @OneToMany(mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
+
 
    
     // Getters and Setters
